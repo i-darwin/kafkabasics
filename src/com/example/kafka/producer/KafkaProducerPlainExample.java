@@ -11,7 +11,6 @@ import org.apache.kafka.common.serialization.StringSerializer;
 public class KafkaProducerPlainExample {
 
 	public static void main(String[] args) {
-		//String bootstrapServer = "10.1.77.104:9092";
 		String bootstrapServer = "127.0.0.1:9092,127.0.0.2:9092,127.0.0.2:9092";
 		String topic = "TEST_TOPIC";
 		String message = "Hello World ";
@@ -60,7 +59,6 @@ public class KafkaProducerPlainExample {
 				}
 				Thread.sleep(1000); //pause so you can see the output
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
