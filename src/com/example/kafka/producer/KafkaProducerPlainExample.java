@@ -8,7 +8,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-public class KafkaConnectProduce {
+public class KafkaProducerPlainExample {
 
 	public static void main(String[] args) {
 		//String bootstrapServer = "10.1.77.104:9092";
