@@ -1,18 +1,13 @@
 package com.example.consumer;
 
-import java.sql.Timestamp;
-import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Properties;
-
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
+
+import java.sql.Timestamp;
+import java.time.Duration;
+import java.util.*;
 
 public class KafkaConsumerPlainExample {
 
