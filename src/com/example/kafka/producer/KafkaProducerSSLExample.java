@@ -1,0 +1,57 @@
+package com.example.kafka.producer;
+
+import java.util.Properties;
+import java.util.concurrent.ExecutionException;
+import java.util.logging.Logger;
+
+import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.CommonClientConfigs;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.config.SslConfigs;
+import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.apache.kafka.common.serialization.StringSerializer;
+
+@Slf4j
+public class KafkaProducerSSLExample {
+
+
+    public static void main(String[] args) {
+        String bootstrapServer = "127.0.0.1:9095";
+        String topic = "TEST_TOPIC";
+
+        Properties props = new Properties();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        props.put("security.protocol", "SSL");
+        props.put("ssl.truststore.location", "D:\\Path\\To\\Your\\JKS\\Trustore\\truststore.jks");
+        props.put("ssl.truststore.password", "truststorePasswordHere");
+        props.put("ssl.keystore.location", "D:\\Path\\To\\Your\\JKS\\Keystore\\keystore.jks");
+        props.put("ssl.keystore.password", "keystorePasswordHere");
+
+        KafkaProducer<String, String> producer = new KafkaProducer<String, String>(props);
+
+        try {
+            for (int i = 0; i < 100; i++) {
+                ProducerRecord<String, String> record = new ProducerRecord<String, String>(topic, "Hello World " + i);
+                System.out.println("sending: " + record.value());
+                producer.send(record).get();
+                System.out.println("=========================================");
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        producer.flush();
+        producer.close();
+
+    }
+
+}
